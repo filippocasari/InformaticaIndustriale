@@ -1,5 +1,5 @@
 #include <iostream>
-
+//bravo bella soluzione casnas
 using namespace std;
 
 int state = 0;
