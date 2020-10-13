@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-#ifdef NO_PI
+#ifndef NO_PI
 
 #include <wiringPi.h>
 
@@ -30,14 +30,14 @@ void semaforo(unsigned int* countPointer, int* statocorrente, int* tempo);
 /// Utils
 ///
 void init() {
-#ifdef NO_PI
+#ifndef NO_PI
     wiringPiSetup();
     pinMode(led_Blue, OUTPUT);
 #endif
 }
 
 void setLed(int ledNumber, bool value) {
-#ifdef NO_PI
+#ifndef NO_PI
     digitalWrite(ledNumber, value);
 #else
     cout << "Setting led " << ledNumber << " to " << (value ? "ON" : "OFF") << endl;
@@ -87,7 +87,7 @@ void waitingTime(unsigned int* countPointer, int* tempo) {
     for (int i = 0; i < *tempo; i++) {
         *countPointer += 1;
         cout << "sono passati... " << *countPointer << " sec" << endl;
-#ifdef NO_PI
+#ifndef NO_PI
         delay(timeoutMs);
 #else
         Sleep(timeoutMs);
