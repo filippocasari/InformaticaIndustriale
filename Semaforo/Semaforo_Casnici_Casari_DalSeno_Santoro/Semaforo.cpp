@@ -35,8 +35,11 @@ void wait(int time)
 {
 #ifndef NO_PI
     delay(time);
+#ifdef _WIN32
+    Sleep(time);
 #else
     usleep(time*1000);
+#endif
 #endif
 
 }
@@ -58,10 +61,13 @@ void trafficLighError(){
     digitalWrite(current_state,1);
     wait(timers[3]);
     #else
-    mfn(current_state, 1);
+    #ifdef _WIN32
+    Sleep(timers[3]);
+    #else
     usleep(timers[3]*1000);
     #endif
-
+    mfn(current_state, 1);
+    #endif
     while(true) {   
         numOfCycles++;
         if (numOfCycles > 20) { //Go back when we turn on Yellow for 10 times
@@ -76,9 +82,12 @@ void trafficLighError(){
             digitalWrite(current_state,1);
         }
         wait(timers[3]);
-        #else
         mfn(current_state, 1);
+        #ifndef _WIN32
         usleep(timers[3]*1000);
+        #else
+        Sleep(timers[3]);
+        #endif
         #endif
     
         cout << "current state: " << current_state <<endl;
@@ -96,7 +105,11 @@ void go()
     wait(timers[current_state]);
     #else
     mfn(current_state, 1);
+    #ifndef _WIN32
     usleep(timers[current_state]*1000);
+    #else
+    Sleep(timers[current_state]);
+    #endif
     #endif
     while(true)
     {   
@@ -111,7 +124,11 @@ void go()
         digitalWrite(current_state,0);
         #else
         mfn(current_state, 0);
+        #ifndef _WIN32
         usleep(timers[current_state]*1000);
+        #else
+        Sleep(timers[current_state]);
+        #endif
         #endif
         current_state = states[current_state][1];
         cout << "current state: " << current_state <<endl; 
@@ -120,7 +137,11 @@ void go()
         wait(timers[current_state]);
         #else
         mfn(current_state, 1);
+        #ifndef _WIN32
         usleep(timers[current_state]*1000);
+        #else
+        Sleep(timers[current_state]);
+        #endif
         #endif
         cout << "time passed: " << timers[current_state] << "ms" <<endl;
     }
