@@ -34,7 +34,7 @@ void init()
 #ifndef NO_PI
     wiringPiSetup();
     pinMode(led_red, OUTPUT);
-    pinMode(led_green. OUTPUT);
+    pinMode(led_green, OUTPUT);
     pinMode(led_yellow, OUTPUT);
     
 #endif
