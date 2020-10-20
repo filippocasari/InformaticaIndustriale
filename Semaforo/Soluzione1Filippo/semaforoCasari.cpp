@@ -13,7 +13,11 @@
 
 using namespace std;
 
-const int led_Blue = 0;
+const int led_green = 0;
+
+const int led_red = 2;
+
+const int led_yellow = 1;
 const int timeoutMs = 1000; // 1 second
 
 const int stati[3] = {0, 1, 2};
@@ -29,18 +33,14 @@ void init()
 {
 #ifndef NO_PI
     wiringPiSetup();
-    pinMode(led_Blue, OUTPUT);
+    pinMode(led_red, OUTPUT);
+    pinMode(led_green. OUTPUT);
+    pinMode(led_yellow, OUTPUT);
+    
 #endif
 }
 
-void setLed(int ledNumber, bool value)
-{
-#ifndef NO_PI
-    digitalWrite(ledNumber, value);
-#else
-    cout << "Setting led " << ledNumber << " to " << (value ? "ON" : "OFF") << endl;
-#endif
-}
+
 
 int main()
 {
