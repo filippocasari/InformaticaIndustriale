@@ -14,21 +14,20 @@
 using namespace std;
 
 const int led_green = 0;
-
+const int led_yellow = 1;
 const int led_red = 2;
 
-const int led_yellow = 1;
 const int timeoutMs = 1000; // 1 second
 
 const int stati[3] = {0, 1, 2};
 const int Time[3] = {2, 3, 2};
-void waitingTime(unsigned int *countPointer, int *tempo);
 
-int semaforo(unsigned int *countPointer, int *statocorrentePnt, int *tempo);
+void waitingTime(unsigned int *countPnt, int *tempo);
 
-///
-/// Utils
-///
+int NormalCycle(unsigned int *countPointer, int *statocorrentePnt, int *tempo);
+
+void  errorState();
+
 void init()
 {
 #ifndef NO_PI
@@ -54,12 +53,15 @@ int main()
 
         cout << "stato corrente= " << statocorrente << endl;
 
-        statocorrente = semaforo(&count, &statocorrente, &tempo);
+        statocorrente = NormalCycle(&count, &statocorrente, &tempo);
     }
     return 0;
 }
-int semaforo(unsigned int *countPointer, int *statocorrentePnt, int *tempo)
+int NormalCycle(unsigned int *countPnt, int *statocorrentePnt, int *tempo)
 {
+    if (*countPnt % 10 == 0) {
+        errorState();
+    }
 
     switch (*statocorrentePnt)
     {
@@ -77,23 +79,28 @@ int semaforo(unsigned int *countPointer, int *statocorrentePnt, int *tempo)
         *statocorrentePnt = stati[0];
 
     }
-    *countPointer = 0;
-    *tempo = Time[*statocorrentePnt];
-    waitingTime(countPointer, tempo);
-
     
+    *tempo = Time[*statocorrentePnt];
+    waitingTime(countPnt, tempo);
+
     return (*statocorrentePnt);
 }
-void waitingTime(unsigned int *countPointer, int *tempo)
+void waitingTime(unsigned int *countPnt, int *tempo)
 {
-    for (int i = 0; i < *tempo; i++)
+    int i;
+    for (i = 1; i =< *tempo; i++)
     {
-        *countPointer += 1;
-        cout << "sono passati... " << *countPointer << " sec" << endl;
+        
+        cout << "sono passati... " << i << " sec" << endl;
 #ifndef NO_PI
         delay(timeoutMs);
 #else
         sleep(timeoutMs / 1000);
 #endif
     }
+    *counterPnt += i;
+}
+
+void  errorState() {
+    cout << "error!!\n";
 }
