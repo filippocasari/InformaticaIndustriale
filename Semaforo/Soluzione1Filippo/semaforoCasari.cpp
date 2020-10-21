@@ -24,7 +24,7 @@ const int Time[3] = {2, 3, 2};
 
 void waitingTime(unsigned int *countPnt, int *tempo);
 
-int NormalCycle(unsigned int *countPointer, int *statocorrentePnt, int *tempo);
+int NormalCycle(unsigned int *countPnt, int *statocorrentePnt, int *tempo);
 
 void  errorState();
 
@@ -38,7 +38,6 @@ void init()
     
 #endif
 }
-
 
 
 int main()
@@ -59,24 +58,27 @@ int main()
 }
 int NormalCycle(unsigned int *countPnt, int *statocorrentePnt, int *tempo)
 {
-    if (*countPnt % 10 == 0) {
+    if (*countPnt % 10 == 0 and *countPnt > 0) {
         errorState();
     }
 
     switch (*statocorrentePnt)
     {
 
-    case (0):
+        case (0):
 
-        *statocorrentePnt = stati[1];
-        cout<<*statocorrentePnt;
-
-    case (1):
-        *statocorrentePnt = stati[2];
-
-    case (2):
-
-        *statocorrentePnt = stati[0];
+            *statocorrentePnt = stati[1];
+         
+            break;
+        
+        case (1):
+ 
+            *statocorrentePnt = stati[2];
+            break;
+        case (2):
+      
+            *statocorrentePnt = stati[0];
+            break;
 
     }
     
@@ -88,7 +90,7 @@ int NormalCycle(unsigned int *countPnt, int *statocorrentePnt, int *tempo)
 void waitingTime(unsigned int *countPnt, int *tempo)
 {
     int i;
-    for (i = 1; i =< *tempo; i++)
+    for (i = 1; i <= *tempo; i++)
     {
         
         cout << "sono passati... " << i << " sec" << endl;
@@ -98,9 +100,10 @@ void waitingTime(unsigned int *countPnt, int *tempo)
         sleep(timeoutMs / 1000);
 #endif
     }
-    *counterPnt += i;
+    *countPnt += i;
 }
 
 void  errorState() {
-    cout << "error!!\n";
+    cout << "\nerror!!\n";
+
 }
