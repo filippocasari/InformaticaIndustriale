@@ -1,0 +1,1 @@
+/usr/bin/cc -g   -pthread CMakeFiles/PThreads.dir/main.c.o  -o PThreads 

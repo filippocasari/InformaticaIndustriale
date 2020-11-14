@@ -1,0 +1,3 @@
+/home/filippo/CLionProjects/PThreads2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/filippo/CLionProjects/PThreads2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/filippo/CLionProjects/PThreads2/cmake-build-debug/CMakeFiles/PThreads2.dir
