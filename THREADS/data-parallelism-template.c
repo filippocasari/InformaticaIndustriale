@@ -38,9 +38,11 @@ int main() {
         int err = pthread_create(&my_threads[i], &myattr, pthread_fn, (void *) i);
         pthread_attr_destroy(&myattr);
     }
-    for (int j = 0; j < NUM_THREADS; j++) {
+
+    //this optional , each thread works on a specific range of array's values: No conflicts
+    /*for (int j = 0; j < NUM_THREADS; j++) {
         pthread_join(my_threads[j], &returnvalue);
-    }
+    }*/
 
     stampa_tutto();
     return 0;
