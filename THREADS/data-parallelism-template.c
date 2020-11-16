@@ -13,9 +13,11 @@ void *pthread_fn(void *args) {
     int index = (int) args;
     int min = index * rapporto;
     int max = rapporto + min;
-    for (;index < max; index++) {
+    for (index=min;index < max; index++) {
         arr[index] = index * 2;
+        //printf("arr[%d] is %d\t", index, arr[index]);
     }
+    //printf("\n");
 
 }
 
