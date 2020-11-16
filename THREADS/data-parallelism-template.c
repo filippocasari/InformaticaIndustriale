@@ -30,7 +30,7 @@ int main() {
 
     pthread_t my_threads[NUM_THREADS];
     pthread_attr_t myattr;
-    void *returnvalue;
+    //void *returnvalue;
 
     for (int i = 0; i < NUM_THREADS; i++) {
 
