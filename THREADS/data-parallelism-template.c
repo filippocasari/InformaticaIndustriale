@@ -30,7 +30,7 @@ int main() {
 
     pthread_t my_threads[NUM_THREADS];
     pthread_attr_t myattr;
-    //void *returnvalue;
+    void *returnvalue;
 
     for (int i = 0; i < NUM_THREADS; i++) {
 
@@ -39,10 +39,9 @@ int main() {
         pthread_attr_destroy(&myattr);
     }
 
-    //this optional , each thread works on a specific range of array's values: No conflicts
-    /*for (int j = 0; j < NUM_THREADS; j++) {
+    for (int j = 0; j < NUM_THREADS; j++) {
         pthread_join(my_threads[j], &returnvalue);
-    }*/
+    }
 
     stampa_tutto();
     return 0;
