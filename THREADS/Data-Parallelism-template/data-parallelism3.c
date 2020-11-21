@@ -24,7 +24,7 @@ void *pthread_fn(void *args) {
 
     int min = index * (rapporto + j);
     int max = (rapporto + j) + min;
-    if(N_ELEMENT-min < rapporto){
+    if(N_ELEMENT-min < rapporto+j){
         max=N_ELEMENT;
     }
     for (index = min; index < max; index++) {
