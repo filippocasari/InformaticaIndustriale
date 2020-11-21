@@ -3,4 +3,4 @@ project(SolutionByFCasariEX1)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(SolutionByFCasariEX1 main.cpp)
+add_executable(MyTarget ${SOURCE_FILES} main.cpp)

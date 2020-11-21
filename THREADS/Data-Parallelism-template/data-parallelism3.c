@@ -6,7 +6,7 @@
 
 
 #define NUM_THREADS 4
-#define N_ELEMENT 11
+#define N_ELEMENT 13
 
 int arr[N_ELEMENT];
 
@@ -14,23 +14,26 @@ const int rapporto = N_ELEMENT / NUM_THREADS;
 
 void *pthread_fn(void *args) {
     int index = (int) args;
-    int j=0;
-    if (N_ELEMENT % NUM_THREADS == 1){
-        j=1;
-        
+    int j = 0;
+    if ((N_ELEMENT % NUM_THREADS) != 0) {
+        j = 1;
     }
+
     printf("thread numero: %d\n", index);
-    
-    
-    int min = index * (rapporto+j);
-    int max = (rapporto+j) + min;
-    for (index=min;index < max; index++) {
-        arr[index] = index * 2;
-        
-        printf("arr[%d] is %d\t", index, arr[index]);
+
+
+    int min = index * (rapporto + j);
+    int max = (rapporto + j) + min;
+    if(N_ELEMENT-min < rapporto){
+        max=N_ELEMENT;
     }
-    
-    printf("\n");
+    for (index = min; index < max; index++) {
+        arr[index] = index * 2;
+
+        printf("arr[%d] is %d\t\n", index, arr[index]);
+    }
+
+    printf("\n\n");
 
 }
 
@@ -42,22 +45,23 @@ void stampa_tutto() {
 
 
 int main() {
-    
-    pthread_t my_threads[NUM_THREADS-1];
+
+    pthread_t my_threads[NUM_THREADS - 1];
     pthread_attr_t myattr;
     void *returnvalue;
 
-    for (int i = 0; i < NUM_THREADS-1; i++) {
+    for (int i = 0; i < NUM_THREADS - 1; i++) {
 
         pthread_attr_init(&myattr);
         int err = pthread_create(&my_threads[i], &myattr, pthread_fn, (void *) i);
         pthread_attr_destroy(&myattr);
     }
-    pthread_fn((int) NUM_THREADS-1);
-    for (int j = 0; j < NUM_THREADS-1; j++) {
+    pthread_fn((int) NUM_THREADS - 1);
+    for (int j = 0; j < NUM_THREADS - 1; j++) {
         pthread_join(my_threads[j], &returnvalue);
     }
 
-    
+
     return 0;
 }
+
