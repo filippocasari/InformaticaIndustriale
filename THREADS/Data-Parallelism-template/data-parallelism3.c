@@ -6,7 +6,7 @@
 
 
 #define NUM_THREADS 4
-#define N_ELEMENT 13
+#define N_ELEMENT 5
 
 int arr[N_ELEMENT];
 
