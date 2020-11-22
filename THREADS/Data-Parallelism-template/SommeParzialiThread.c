@@ -7,7 +7,7 @@
 
 
 #define NUM_THREADS 4
-#define N_ELEMENT 10
+#define N_ELEMENT 5
 
 int arr[N_ELEMENT];
 
@@ -16,10 +16,9 @@ const int rapporto = N_ELEMENT / NUM_THREADS;
 int *pthread_fn(void *args) {
     int j = 0;
     int index = (int) args;
-    if ((N_ELEMENT % NUM_THREADS) != 0) {
-        j = 1;
-    }
+    j = ((N_ELEMENT % NUM_THREADS) != 0) ? 1 : 0;
 
+    int contatore_el_processati = 0;
     int min = index * (rapporto + j);
     int max = (rapporto + j) + min;
 
@@ -29,7 +28,9 @@ int *pthread_fn(void *args) {
     }
     for (index = min; index < max; index++) {
         somma += arr[index];
+        contatore_el_processati++;
     }
+
     return somma;
 }
 
@@ -39,8 +40,14 @@ void riempiArray() {
     }
 }
 
+void Average_fn(const int *Somma_Tot, float *Media) {
+
+    *Media = (float) *Somma_Tot / N_ELEMENT;
+}
+
 
 int main() {
+    float Media;
     riempiArray();
     pthread_t my_threads[NUM_THREADS - 1];
     pthread_attr_t myattr;
@@ -53,18 +60,19 @@ int main() {
         pthread_attr_destroy(&myattr);
 
     }
-    somma_Tot=pthread_fn((int) NUM_THREADS - 1);
-    printf("Somma paziale del Thread %d : %d\n", NUM_THREADS-1, somma_Tot);
+    somma_Tot = pthread_fn((int) NUM_THREADS - 1);
+    printf("Somma paziale del Thread %d : %d\n", NUM_THREADS - 1, somma_Tot);
     for (int j = 0; j < NUM_THREADS - 1; j++) {
 
         pthread_join(my_threads[j], &returnvalue);
 
         printf("Somma parziale del thread %d: %d\n", j, (int) returnvalue);
 
-        somma_Tot+= (int) returnvalue;
+        somma_Tot += (int) returnvalue;
     }
-    printf("Somma totale: %d", somma_Tot);
-
+    printf("Somma totale: %d\n", somma_Tot);
+    Average_fn(&somma_Tot, &Media);
+    printf("La media e' : %f", Media);
     return 0;
 }
 
