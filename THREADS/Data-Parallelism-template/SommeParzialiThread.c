@@ -1,5 +1,6 @@
-//variante con thread main che lavora (fa da quatro thread)
-//in piu' il num di elementi non è esattamente un numero multiplo dei threads
+//variante con thread main che lavora (fa da quarto thread)
+//in piu', se il num di elementi non è esattamente
+// un numero multiplo dei threads, ho j che viene sommato al chunk
 
 #include <stdio.h>
 #include <pthread.h>
